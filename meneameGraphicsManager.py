@@ -56,6 +56,7 @@ class MeneameGraphicsManager():
         plt.show() 
 
     def __show_avgTimes(self):
+        plt.figure(figsize=(12, 6))
         self.dataFrame['sent-date'] = self.dataFrame['sent-date'].apply(lambda x: int(pd.Timestamp(x).timestamp()))
         self.dataFrame['pub-date'] = self.dataFrame['pub-date'].apply(lambda x: int(pd.Timestamp(x).timestamp()))
         self.dataFrame['diff-time'] = (self.dataFrame['pub-date'] - self.dataFrame['sent-date']).apply(lambda x: abs(x/3600))
@@ -63,6 +64,7 @@ class MeneameGraphicsManager():
         plt.ylabel("Frequency")
         plt.xlabel("Hours")
         plt.hist(self.dataFrame['diff-time'])
+        plt.tight_layout(pad=1.08, h_pad=None, w_pad=None, rect=None)
         plt.show()
 
 
