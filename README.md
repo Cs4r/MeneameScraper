@@ -4,6 +4,12 @@
 
 Esta práctica se ha realizado bajo el contexto de la asignatura _Tipología y ciclo de vida de los datos_, perteneciente al Máster en Ciencia de Datos de la Universitat Oberta de Catalunya. En ella, se aplican técnicas de _web scraping_ mediante el lenguaje de programación Python para extraer así datos de la web [Menéame.net](http://meneame.net) y generar un _dataset_.
 
+## Ficheros
+
+El repositorio cuenta con los siguientes ficheros de código:
+
+* Main.py: Script principal conteniendo el método main de la aplicación, contiene los metodos principales para obtener las url de las noticias y realiza la extraccion de los datos de cada noticia para guardarlos en un fichero CSV
+* meneameGraphicsManager.py: Clase que gestiona la creacion y presentacion de graficos
 
 ## Uso
 
@@ -29,3 +35,9 @@ La documentación relativa a la práctica se encuentra en [nuestra wiki](https:/
 
 1. Lawson, R. (2015). _Web Scraping with Python_. Packt Publishing Ltd. Chapter 2. Scraping the Data.
 2. Mitchel, R. (2015). _Web Scraping with Python: Collecting Data from the Modern Web_. O'Reilly Media, Inc. Chapter 1. Your First Web Scraper.
+
+## Autores
+
+El trabajo ha sido realizado por:
+* Daniel Velasco Torre
+* César Aguilera Padilla

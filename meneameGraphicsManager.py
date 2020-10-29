@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 #from pysimplegui import PySimpleGUI as sg
 
 class MeneameGraphicsManager():
+    """
+    Class that manages the creation of graphs for the created meneame dataset
+    """
 
     def __init__(self, _path):
         self.path = _path
@@ -56,6 +59,9 @@ class MeneameGraphicsManager():
         plt.show() 
 
     def __show_avgTimes(self):
+        """
+        Plots the average times between issuing and publishing the news in Meneame.net
+        """
         plt.figure(figsize=(12, 6))
         self.dataFrame['sent-date'] = self.dataFrame['sent-date'].apply(lambda x: int(pd.Timestamp(x).timestamp()))
         self.dataFrame['pub-date'] = self.dataFrame['pub-date'].apply(lambda x: int(pd.Timestamp(x).timestamp()))

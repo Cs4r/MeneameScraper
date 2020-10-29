@@ -30,13 +30,22 @@ class CustomArgParser(argparse.ArgumentParser):
         sys.exit(2)
 
 def epoch_to_formatted_date(epoch):
+    """
+    Converts the timestamp to formated date
+    """
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(epoch))
 
 
 def string_to_date(date):
+    """
+    Converts string date to formated date
+    """
     return datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
 
 def handle_separator(text):
+    """
+    Replaces all charaters ; by an empty character in the given text
+    """
     separator = ";"
     if type(text) == str:
         return text.replace(separator, "")
@@ -45,7 +54,12 @@ def handle_separator(text):
 
 
 def scrap(url):
+    """
+    Method used to scrap each of the news given in the URL passed as parameter
+    """
+    #performs the request to the given URL
     page = requests.get(url, headers=HEADERS)
+    #creates a BeautifulSoup object with the html content obtained from the request
     soup = BeautifulSoup(page.content, features="html.parser")
     news = dict()
 
@@ -84,11 +98,17 @@ def scrap(url):
 
 
 def list_news_until_date(stop_date):
+    """
+    Method that lists the URLs of the news from Meneame.net
+    until the date given as parameter
+    """
     page_number = 1
     list_of_urls = []
     fetch_news = True
 
     while fetch_news:
+        #starting from page 1, start scraping each page looking for the latests
+        #news given the stop date
         url = "https://www.meneame.net/?page=" + str(page_number)
         page = requests.get(url, headers=HEADERS)
         soup = BeautifulSoup(page.content, features="html.parser")
@@ -125,7 +145,7 @@ def list_news_until_date(stop_date):
 if __name__ == '__main__':
 
     path = './csv/dataset.csv'
-
+    #argument definition to be used 
     parser = CustomArgParser()
     parser.add_argument("-g","--show_graphs", help="show graphs of the dataset", action='store_true')
     requiredNamed = parser.add_argument_group('required named arguments')
@@ -136,19 +156,20 @@ if __name__ == '__main__':
     if args.stop_date is not None:
         stop_date = datetime.strptime(args.stop_date, "%d/%m/%Y").replace(hour=23, minute=59, second=59)
 
+        #lists the URLs of the news until the stop date given
         news_to_scrap = list_news_until_date(stop_date)
 
         counter = 0
 
         scrapedNews = []
 
+        #loop where each new is scrapped
         for news in news_to_scrap:
             counter = counter + 1
             scraped = scrap(news)
             scrapedNews.append(scraped)
-            #print(scraped)
+            print(scraped)
             print("Scraped: %d / %d" % (counter, len(news_to_scrap)))
-            # time.sleep(1.5)
 
         df = pd.DataFrame.from_dict(scrapedNews, orient='columns')
         df.to_csv(path_or_buf=path, sep=';', index=False, encoding="utf-8")
